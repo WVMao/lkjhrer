@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import type { Project } from '../../data/projects';
-import { ExternalLink, Monitor } from 'lucide-react';
+import { ExternalLink, Monitor, Eye } from 'lucide-react';
+import { useState } from 'react';
+import ProjectModal from './ProjectModal';
 
 interface ProjectCardProps {
     project: Project;
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const isWeb = project.category === 'web';
 
     const CardContent = () => (
@@ -67,11 +70,30 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                     {project.description}
                 </p>
 
-                {isWeb && (
-                    <div className="mt-3 flex items-center text-white text-sm font-semibold gap-2">
-                        Voir le site <ExternalLink size={16} />
-                    </div>
-                )}
+                {/* Action Buttons on Hover */}
+                <div className="absolute inset-x-0 bottom-6 px-6 flex flex-col gap-2 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 z-20">
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIsModalOpen(true);
+                        }}
+                        className="w-full py-2 bg-white text-gray-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
+                    >
+                        Étude de cas <Eye size={18} />
+                    </button>
+
+                    {isWeb && project.link && (
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2 bg-blue-600 text-white text-center rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            Visiter le site <ExternalLink size={16} className="inline ml-1" />
+                        </a>
+                    )}
+                </div>
             </div>
         </>
     );
@@ -83,20 +105,15 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.4 }}
-            className="relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 shadow-lg dark:shadow-slate-900/50 group h-[300px] sm:h-[350px] border border-gray-100 dark:border-slate-800 transition-all duration-300"
+            className="relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 shadow-lg dark:shadow-slate-900/50 group h-[300px] sm:h-[350px] border border-gray-100 dark:border-slate-800 transition-all duration-300 cursor-pointer"
+            onClick={() => setIsModalOpen(true)}
         >
             <CardContent />
-            {isWeb && project.link && (
-                <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-x-6 bottom-6 py-2 bg-emerald-500 text-white text-center rounded-xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 z-20 hover:bg-emerald-600"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    Visiter le site <ExternalLink size={16} className="inline ml-1" />
-                </a>
-            )}
+            <ProjectModal
+                project={project}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </motion.div>
     );
 };

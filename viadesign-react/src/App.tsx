@@ -1,10 +1,10 @@
 import Navbar from './components/layout/Navbar';
 import Hero from './components/sections/Hero';
+import Process from './components/sections/Process';
 import Portfolio from './components/sections/Portfolio';
 import Contact from './components/sections/Contact';
 import Footer from './components/layout/Footer';
 import FloatingActions from './components/ui/FloatingActions';
-import CustomCursor from './components/ui/CustomCursor';
 
 function App() {
   return (
@@ -13,13 +13,13 @@ function App() {
 
       <main>
         <Hero />
+        <Process />
         <Portfolio />
         <Contact />
       </main>
 
       <Footer />
       <FloatingActions />
-      <CustomCursor />
     </div>
   );
 }

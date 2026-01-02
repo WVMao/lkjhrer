@@ -6,6 +6,11 @@ export interface Project {
     image: string;
     link?: string;
     tags?: string[];
+    caseStudy?: {
+        problem: string;
+        solution: string;
+        result: string;
+    };
 }
 
 export const graphicPortfolio: Project[] = [
