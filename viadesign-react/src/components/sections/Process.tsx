@@ -7,31 +7,31 @@ const Process = () => {
             icon: <Search className="w-8 h-8" />,
             title: "01. Découverte",
             description: "Analyse approfondie de vos besoins, de vos objectifs et de votre cible pour poser les bases solides de votre projet.",
-            color: "blue"
+            iconStyles: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
         },
         {
             icon: <Lightbulb className="w-8 h-8" />,
             title: "02. Stratégie",
             description: "Élaboration d'un concept unique, création de moodboards et définition de la direction artistique.",
-            color: "purple"
+            iconStyles: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"
         },
         {
             icon: <PenTool className="w-8 h-8" />,
             title: "03. Design",
             description: "Donner vie aux idées à travers des visuels percutants ou des interfaces UI fluides et intuitives.",
-            color: "pink"
+            iconStyles: "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400"
         },
         {
             icon: <Code2 className="w-8 h-8" />,
             title: "04. Réalisation",
             description: "Développement technique rigoureux avec une attention particulière aux détails et aux performances.",
-            color: "green"
+            iconStyles: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
         },
         {
             icon: <Rocket className="w-8 h-8" />,
             title: "05. Lancement",
             description: "Mise en ligne, tests finaux et accompagnement pour assurer le succès de votre nouvelle identité.",
-            color: "orange"
+            iconStyles: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"
         }
     ];
 
@@ -101,7 +101,7 @@ const Process = () => {
                             className="group relative"
                         >
                             <div className="bg-gray-50 dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full flex flex-col">
-                                <div className={`w-16 h-16 rounded-2xl bg-${step.color}-100 dark:bg-${step.color}-900/30 flex items-center justify-center text-${step.color}-600 dark:text-${step.color}-400 mb-6 group-hover:scale-110 transition-transform`}>
+                                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${step.iconStyles}`}>
                                     {step.icon}
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">

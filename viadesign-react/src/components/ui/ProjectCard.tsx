@@ -27,6 +27,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                             <img
                                 src={project.image}
                                 alt={project.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover mt-4 rounded-sm"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = `https://via.placeholder.com/800x500?text=${encodeURIComponent(project.title)}`;
@@ -42,79 +44,101 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                             <img
                                 src={project.image}
                                 alt={project.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover rounded-[14px]"
                             />
                         </div>
                     </div>
                 ) : (
-                    <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-contain block transition-transform duration-500 hover:scale-110"
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`;
-                        }}
-                    />
+                    <div className="relative w-full h-full overflow-hidden bg-gray-50 dark:bg-slate-800 group">
+                        <motion.div
+                            className="w-full h-full"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover object-top transition-transform duration-500"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`;
+                                }}
+                            />
+                        </motion.div>
+                    </div>
                 )}
             </div>
 
-            {/* Overlay avec texte blanc forcé */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 translate-y-4 hover:translate-y-0">
-                <span className="inline-block bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 w-fit">
-                    {project.category?.toUpperCase() || 'WEB DESIGN'}
-                </span>
-                <h3 className="text-white text-xl font-bold mb-1 drop-shadow-md" style={{ color: '#ffffff', textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}>
-                    {project.title}
-                </h3>
-                <p className="text-gray-100 text-sm opacity-95 drop-shadow-sm" style={{ color: '#f0f0f0' }}>
-                    {project.description}
-                </p>
+            {/* Overlay avec texte blanc forcé et meilleure lisibilité */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 z-20">
+                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex flex-col gap-2">
+                    <span className="inline-block bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full w-fit">
+                        {project.category?.toUpperCase() || 'WEB DESIGN'}
+                    </span>
+                    <h3 className="text-white text-xl font-bold drop-shadow-md leading-tight">
+                        {project.title}
+                    </h3>
+                    <p className="text-gray-200 text-sm leading-relaxed line-clamp-2">
+                        {project.description}
+                    </p>
 
-                {/* Action Buttons on Hover */}
-                <div className="absolute inset-x-0 bottom-6 px-6 flex flex-col gap-2 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 z-20">
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setIsModalOpen(true);
-                        }}
-                        className="w-full py-2 bg-white text-gray-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
-                    >
-                        Étude de cas <Eye size={18} />
-                    </button>
+                    {/* Action Buttons in Flow */}
+                    <div className="pt-2 flex flex-col gap-2">
+                        {!isWeb && (
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsModalOpen(true);
+                                }}
+                                className="w-full py-2 bg-white text-gray-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors shadow-lg shadow-black/20 text-sm"
+                            >
+                                Étude de cas <Eye size={16} />
+                            </button>
+                        )}
 
-                    {isWeb && project.link && (
-                        <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full py-2 bg-blue-600 text-white text-center rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            Visiter le site <ExternalLink size={16} className="inline ml-1" />
-                        </a>
-                    )}
+                        {isWeb && project.link && (
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2 bg-blue-600 text-white text-center rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20 text-sm flex items-center justify-center gap-2"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                Visiter le site <ExternalLink size={16} />
+                            </a>
+                        )}
+                    </div>
                 </div>
             </div>
         </>
     );
 
     return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.4 }}
-            className="relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 shadow-lg dark:shadow-slate-900/50 group h-[300px] sm:h-[350px] border border-gray-100 dark:border-slate-800 transition-all duration-300 cursor-pointer"
-            onClick={() => setIsModalOpen(true)}
-        >
-            <CardContent />
-            <ProjectModal
-                project={project}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            />
-        </motion.div>
+        <>
+            <motion.div
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                transition={{ duration: 0.4 }}
+                className={`relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 shadow-lg hover:shadow-2xl dark:shadow-slate-900/50 group h-[300px] sm:h-[350px] border border-gray-100 dark:border-slate-800 transition-all duration-300 ${!isWeb ? 'cursor-pointer' : ''}`}
+                onClick={() => !isWeb && setIsModalOpen(true)}
+            >
+                <CardContent />
+            </motion.div>
+
+            {isModalOpen && (
+                <ProjectModal
+                    project={project}
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
+        </>
     );
 };
 

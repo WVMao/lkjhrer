@@ -133,7 +133,7 @@ const Portfolio = () => {
                 {/* -- SECTION WEB -- */}
                 <motion.div
                     id="web"
-                    className="text-center mb-16 pt-10 border-t border-gray-200"
+                    className="text-center mb-16 pt-10 border-t border-transparent"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
