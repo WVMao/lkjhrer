@@ -205,7 +205,7 @@ const Contact = () => {
                     >
                         <label className="block text-gray-700 font-bold mb-2 text-sm">Sujet</label>
                         <select
-                            className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-100 focus:border-blue-500 focus:bg-white focus:outline-none transition-all cursor-pointer"
+                            className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-800 border-2 border-gray-100 dark:border-slate-700 text-gray-900 dark:text-gray-200 focus:border-blue-500 focus:bg-white dark:focus:bg-slate-700 focus:outline-none transition-all cursor-pointer focus:shadow-lg focus:shadow-blue-500/10"
                             value={formData.subject}
                             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         >
