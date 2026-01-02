@@ -1,0 +1,16 @@
+{
+  "name": "viadesign-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio pour ViaDesign - Graphiste & Web Designer",
+  "scripts": {
+    "dev": "npx -y http-server -p 6062 -o -c-1",
+    "start": "npx -y http-server -p 8080"
+  },
+  "keywords": [
+    "portfolio",
+    "design",
+    "web"
+  ],
+  "author": "ViaDesign",
+  "license": "ISC"
+}
