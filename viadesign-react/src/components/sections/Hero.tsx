@@ -66,11 +66,25 @@ const Hero = () => {
                             className="text-5xl md:text-7xl font-outfit font-bold text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight"
                         >
                             Design <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Premium</span> <br />
-                            <span className="relative inline-block">
+                            <span className="relative inline-block z-10">
                                 & Impact Visuel
-                                <svg className="absolute w-full h-3 -bottom-1 left-0 text-green-500/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-                                </svg>
+                                <motion.svg
+                                    className="absolute w-[110%] h-4 -bottom-2 -left-[5%] -z-10 overflow-visible"
+                                    viewBox="0 0 100 12"
+                                    preserveAspectRatio="none"
+                                >
+                                    <motion.path
+                                        d="M0 5 Q 50 12 100 5"
+                                        stroke="#22c55e"
+                                        strokeWidth="3"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        initial={{ pathLength: 0, opacity: 0 }}
+                                        animate={{ pathLength: 1, opacity: 1 }}
+                                        transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                                        style={{ filter: "drop-shadow(0 0 4px rgba(34, 197, 94, 0.5))" }}
+                                    />
+                                </motion.svg>
                             </span>
                         </motion.h1>
 
