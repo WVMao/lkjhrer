@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/lkjhrer/',
+  base: './',
 
   // ============== OPTIMISATIONS DE BUILD ==============
   build: {

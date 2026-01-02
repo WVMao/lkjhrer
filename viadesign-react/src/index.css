@@ -2,16 +2,25 @@
 
 @import "tailwindcss";
 
-:root {
-  --primary-blue: #0066FF;
-  --primary-green: #00CC88;
-}
+@config "../tailwind.config.js";
 
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #F8FAFC;
-  color: #1E293B;
-  overflow-x: hidden;
+/* Configuration Dark Mode pour Tailwind v4 avec Sélecteur Classe */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+    overflow-x: hidden;
+  }
 }
 
 h1,
@@ -29,14 +38,13 @@ h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  @apply bg-slate-100 dark:bg-slate-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  @apply bg-slate-400 dark:bg-slate-600;
 }
